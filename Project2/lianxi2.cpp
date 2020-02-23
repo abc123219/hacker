@@ -4,7 +4,7 @@
 #include <string>//字符串string的头文件
 #include <windows.h>
 #include <conio.h>
-//#include "hacker.h"
+#include "hacker.h"
 
 
 //#include <cmath>	//sqrt函数的头文件
@@ -72,7 +72,7 @@ void yinPwd(char pwd[],int size)
 
 	while (1)
 	{
-		c = getch();//输入字符不回显
+		c = _getch();//输入字符不回显
 
 		if (c == '\r')
 		{
@@ -198,45 +198,99 @@ int choice()
 //404攻击
 void attack404()
 {
-	system("cls");
-	cout << "网站404攻击" << endl;
+	
+	//cout << "网站404攻击" << endl;
 
-	/*
+	
 	char id[64];			//攻击的网站id
 	char response[4096];	//返回的攻击结果
 
+	system("cls");
 	
 	cout << "请输入要攻击的id:";
 	scanf_s("%s", id, sizeof(id));
 
+	system("cls");
+
 	hk_404(id, response);//调用hk_404函数来攻击
 
-	//string ret = UTF8ToGBK(response);//转换编码格式,UTF_8->GBK
+	string ret = UTF8ToGBK(response);//转换编码格式,UTF_8->GBK
 
-	cout << response << endl;//输出结果
-	*/
+	cout << ret << endl;//输出结果
+	
 
 	system("pause");
 }
 //篡改
 void with()
 {
+	//system("cls");
+	//cout << "网站篡改攻击" << endl;
+
+	char id[64];
+	char response[4096];
+	string para;
+
 	system("cls");
-	cout << "网站篡改攻击" << endl;
+
+	cout << "请输入要攻击的id:";
+	cin >> id;
+
+	cout << "输入要修改的内容:";
+	cin >> para;
+
+	system("cls");
+
+	GBKToUTF8(para);//将写入的内容转换为UTF_8格式
+
+	//实现篡改攻击
+	hk_tamper(id, (char *)para.c_str(), response);//将string类型的字符串转换char*类型
+
+	string ret = UTF8ToGBK(response);//转换编码格式,UTF_8->GBK
+
+	cout << ret << endl;//输出结果
+
 	system("pause");
 }
 //记录
 void record()
 {
-	system("cls");
-	cout << "攻击记录" << endl;
+	//system("cls");
+	//cout << "攻击记录" << endl;
+
+	char id[64];
+	char response[4096];
+
+	cout << "输入要查看的Id:";
+	cin >> id;
+
+	hk_record(id, response);
+
+	string ret = UTF8ToGBK(response);//转换编码格式,UTF_8->GBK
+
+	cout << ret << endl;//输出结果
+
 	system("pause");
 }
 //修复
 void repair()
 {
-	system("cls");
-	cout << "网站攻击修复" << endl;
+	//system("cls");
+	//cout << "网站攻击修复" << endl;
+
+	char id[64];
+	char response[4096];//结果
+
+	cout << "输入要查看的Id:";
+	cin >> id;
+
+	hk_restore(id, response);
+
+	string ret = UTF8ToGBK(response);//转换编码格式,UTF_8->GBK
+
+	cout << ret << endl;//输出结果
+
+
 	system("pause");
 }
 
